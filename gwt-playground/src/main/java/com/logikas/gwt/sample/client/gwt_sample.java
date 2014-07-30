@@ -87,7 +87,17 @@ public class gwt_sample implements EntryPoint {
 
         public HTMLElement getElementsByTagName(String body);
 
+        public HTMLElement getElementById(String id);
+
     }
+
+    @JsType
+    public interface TemplatePerson extends  HTMLElement {
+        @JsProperty
+        public void setPerson(Person person);
+
+    }
+
 
     @Override
     public void onModuleLoad() {
@@ -101,6 +111,9 @@ public class gwt_sample implements EntryPoint {
 
         final Person person = new Person();
         person.setName("Cristian");
+        TemplatePerson templatePerson = (TemplatePerson)getDocument().getElementById("auto-bind-demo");
+        templatePerson.setPerson(person);
+
         final PathObserver<Person, String> observer = PathObserverFactory.createPathObserver(person, "name");
         input.bind("value", observer);
         final PathObserver<Person, String> observer1 = PathObserverFactory.createPathObserver(person, "name");
